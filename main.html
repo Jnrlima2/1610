@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt" class="dark scroll-smooth" data-color-scheme="dark" prefers-color-scheme="dark">
+<head>
+  <meta charSet="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <title>Heartzzu ©</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ff69b4; /* Fundo completamente rosa */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      padding-top: 20px; /* Adiciona um espaçamento no topo para não colar a imagem */
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 20px; /* Espaçamento entre a imagem e o temporizador */
+      width: 100%;
+      max-width: 600px; /* Limita a largura da caixa do temporizador */
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .timer {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .time-box {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px 20px;
+      border-radius: 10px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      font-weight: normal;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .image-container {
+      text-align: center;
+      margin-bottom: 20px; /* Espaçamento entre a imagem e o temporizador */
+    }
+
+    .image-container img {
+      width: 50%; /* Limita a largura da imagem */
+      height: auto;
+      border-radius: 15px;
+    }
+
+    .message-container {
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace; /* Font diferente para a mensagem */
+      font-style: normal; /* Remove o itálico */
+      font-weight: bold; /* Adiciona negrito ao nome */
+      margin-top: 20px;
+      max-width: 600px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    /* Estilo do player de música */
+    .audio-player {
+      margin-top: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px; /* Espaçamento entre o player e a imagem */
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 5px;
+      background-color: #ff69b4; /* Cor do fundo do player */
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .time-box {
+        font-size: 1.2rem;
+        padding: 10px 15px;
+      }
+
+      .message-container {
+        font-size: 1rem;
+      }
+
+      .audio-player {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden w-screen min-h-screen h-full">
+  <!-- Reprodutor de Música (movido para o topo) -->
+  <div class="audio-player">
+    <audio id="audioPlayer" controls>
+      <source src="https://files.catbox.moe/vgbl39.mp3" type="audio/mp3">
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+  </div>
+
+  <div class="image-container">
+    <img src="https://files.catbox.moe/iwo75w.png" alt="Imagem centralizada" />
+  </div>
+
+  <div class="message-container">
+    <p>Junior ❤️ Nalu</p>
+    <p>Amor, quero que você saiba o quanto você é importante para mim. Sei que nem sempre as coisas são fáceis, mas estar ao seu lado faz tudo valer a pena. Admiro muito você e todo o esforço que tem feito. Estou aqui te apoiando e acreditando na gente, sempre. Te amo demais.</p>
+  </div>
+
+  <div class="container">
+    <h1>Desde que começamos nosso amor: ❤️</h1>
+    <div id="timer" class="timer">
+      <div class="time-box">
+        <span id="years">00</span>
+        <span class="label">Anos</span>
+      </div>
+      <div class="time-box">
+        <span id="days">00</span>
+        <span class="label">Dias</span>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <span class="label">Horas</span>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <span class="label">Minutos</span>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <span class="label">Segundos</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateTime() {
+      const startDate = new Date('2022-09-16T00:00:00');
+      const now = new Date();
+      const difference = now - startDate;
+
+      const years = Math.floor(difference / (1000 * 60 * 60 * 24 * 365.25)); // Calcular anos
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24)) % 365; // Dias restantes após calcular anos
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('years').textContent = years;
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    setInterval(calculateTime, 1000);
+    calculateTime();
+  </script>
+</body>
+</html>
