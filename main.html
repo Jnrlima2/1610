@@ -12,7 +12,7 @@
       color: #fff;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       height: 100vh;
       flex-direction: column;
       padding-top: 20px; /* Adiciona um espaçamento no topo para não colar a imagem */
@@ -39,6 +39,7 @@
       display: flex;
       gap: 10px;
       justify-content: center;
+      flex-wrap: wrap; /* Permite que o temporizador se ajuste em telas menores */
     }
 
     .time-box {
@@ -111,6 +112,7 @@
       .time-box {
         font-size: 1.2rem;
         padding: 10px 15px;
+        min-width: 70px; /* Ajusta o tamanho mínimo para telas menores */
       }
 
       .message-container {
@@ -119,6 +121,11 @@
 
       .audio-player {
         width: 100%;
+      }
+
+      .timer {
+        justify-content: space-between; /* Ajusta o layout do temporizador */
+        padding: 0 10px; /* Adiciona um pequeno padding */
       }
     }
   </style>
